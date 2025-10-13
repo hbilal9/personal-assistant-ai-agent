@@ -9,7 +9,7 @@ llm = ChatOpenAI(
   model="openai/gpt-oss-20b:free"
 )
 
-async def generate_response(template: PromptTemplate, parser: PydanticOutputParser, query: str):
+async def generate_response(template: PromptTemplate, parser: PydanticOutputParser, query: str) -> PydanticOutputParser:
     chain = template | llm | parser
     return await chain.ainvoke({"query": query})
     
