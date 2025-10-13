@@ -1,16 +1,7 @@
 from langchain.prompts import PromptTemplate
-from langchain_core.output_parsers import StrOutputParser
+from langchain_core.output_parsers import PydanticOutputParser
 from langchain_openai import ChatOpenAI
 from config import settings
-
-template = PromptTemplate(
-    template="""
-    "You are a helpful assistant"
-    """,
-
-    input_variables=["query"]
-    )
-parser = StrOutputParser()
 
 llm = ChatOpenAI(
   api_key=settings.OPENROUTER_API_KEY,
@@ -18,7 +9,7 @@ llm = ChatOpenAI(
   model="openai/gpt-oss-20b:free"
 )
 
-async def generate_response(query: str):
+async def generate_response(template: PromptTemplate, parser: PydanticOutputParser, query: str):
     chain = template | llm | parser
     return await chain.ainvoke({"query": query})
     
