@@ -12,10 +12,8 @@ app_bot = (
 
 async def initialize_telegram_bot():
     await app_bot.bot.setWebhook(settings.WEBHOOK_URL)
-    async with app_bot:
-        await app_bot.start()
-        # yield
-        # await app_bot.stop()
+    await app_bot.initialize()
+    await app_bot.start()
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Hello! Bot is running.")
