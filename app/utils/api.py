@@ -1,8 +1,9 @@
 from fastapi import APIRouter, FastAPI
+from app.features.telegram.router import router as telegram_router
 
 api_router = APIRouter(prefix="/api")
 
-# api_router.include_router(telegram_router)
+api_router.include_router(telegram_router)
 
 def register_routes(app: FastAPI):
     app.include_router(api_router)
