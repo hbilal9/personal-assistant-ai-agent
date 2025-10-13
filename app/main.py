@@ -2,13 +2,14 @@ from fastapi import FastAPI
 from config import settings
 from fastapi.responses import JSONResponse
 from app.utils.api import register_routes
+from app.utils.lifespan import lifespan_handler
 
 def create_app() -> FastAPI:
     app = FastAPI(
         title="FASTAPI",
         description="FASTAPI POSTGRES TEMPLATE",
         version="1.0.0",
-        # lifespan=lifespan_handler,
+        lifespan=lifespan_handler,
     )
 
     @app.get("/api/health")
