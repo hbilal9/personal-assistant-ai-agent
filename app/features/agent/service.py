@@ -8,13 +8,16 @@ async def analyze_message_service(query: str) -> AnalyzeMessageSchema:
     parser = PydanticOutputParser(pydantic_object=AnalyzeMessageSchema)
     return await generate_response(ANALYZE_MSG_TEMPLATE, parser, query)
 
-async def greet_service(query: str) -> AnalyzeMessageSchema:
+async def greet_service(query: str) -> str:
     parser = PydanticOutputParser(pydantic_object=GreetMessageSchema)
-    return await generate_response(GREETING_TEMPLATE, parser, query)
+    res = await generate_response(GREETING_TEMPLATE, parser, query)
+    return res.message
 
-async def sent_email_service(query: str) -> SentEmailSchema:
+async def sent_email_service(query: str) -> str:
     parser = PydanticOutputParser(pydantic_object=SentEmailSchema)
-    return await generate_response(SENT_EMAIL_TEMPLATE, parser, query)
+    res = await generate_response(SENT_EMAIL_TEMPLATE, parser, query)
+    print("email body: ", res.email_body)
+    return f"Email to {res.to_email} with subject {res.subject} has been sent."
 
 async def perform_action_service(query: str, action: str):
     if action == "greet":
