@@ -3,6 +3,7 @@ from http import HTTPStatus
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
 from config import settings
+from app.features.agent.service import chat_handler
 
 app_bot = (
     Application.builder()
@@ -27,7 +28,8 @@ async def process_update(request: Request):
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_text = update.message.text
     print("User text: ", user_text)
-    await update.message.reply_text("Hello! Bot is running.")
+    response = await chat_handler(user_text)
+    await update.message.reply_text(response)
 
 app_bot.add_handler(CommandHandler("start", start))
 app_bot.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
