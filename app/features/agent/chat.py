@@ -4,9 +4,9 @@ from langchain_openai import ChatOpenAI
 from config import settings
 
 llm = ChatOpenAI(
-  api_key=settings.OPENROUTER_API_KEY,
-  base_url="https://openrouter.ai/api/v1",
-  model="openai/gpt-oss-20b:free"
+  api_key=settings.GROQ_API_KEY,
+  base_url="https://api.groq.com/openai/v1",
+  model="openai/gpt-oss-20b"
 )
 
 async def generate_response(template: PromptTemplate, parser: PydanticOutputParser, query: str) -> PydanticOutputParser:
