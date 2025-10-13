@@ -21,11 +21,16 @@ Your output must be a **valid JSON object** that strictly adheres to the provide
 {query}
 
 ### Predefined Tool List:
+* `greet`: The user greet or ask about you.
 * `send_email`: The user wants to write and send a new email, reply, or draft an email.
 * `check_email`: The user wants to read, summarize, or classify a received email.
 * `log_expense`: The user wants to record a financial transaction.
 * `none`: The user's request is a general question, conversation, or falls outside the other defined tools.
 
+--- JSON SCHEMA ---
+{{
+  "tool": "string - The name of the tool to be used.",
+}}
 """
 
 SENT_EMAIL_PROMPT = """
