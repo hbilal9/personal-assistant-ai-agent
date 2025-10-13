@@ -5,6 +5,11 @@ Always be concise, respectful, and focused on helping HBilal Khan effectively.
 
 --- REQUEST ---
 {query}
+
+--- JSON SCHEMA ---
+{{
+  "message": "string - The message to be sent to HBilal Khan.",
+}}
 """
 
 ANALYZE_MSG_PROMPT = """
