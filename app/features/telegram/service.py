@@ -11,6 +11,13 @@ app_bot = (
     .build()
 )
 
+initialized = False
+async def lazy_initialize_bot():
+    global initialized
+    if not initialized:
+        await app_bot.initialize()
+        initialized = True
+        
 async def initialize_telegram_bot():
     await app_bot.bot.setWebhook(settings.WEBHOOK_URL)
     await app_bot.initialize()
@@ -20,6 +27,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Hello! Bot is running.")
 
 async def process_update(request: Request):
+    await lazy_initialize_bot()
     json_update = await request.json()
     update = Update.de_json(json_update, app_bot.bot)
     await app_bot.process_update(update)
